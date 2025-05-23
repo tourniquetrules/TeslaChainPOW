@@ -1,0 +1,138 @@
+{
+  "logging": {
+    "level": "info",
+    "enableConsoleLog": true,
+    "enableConsoleColors": true,
+    "logFile": "",
+    "apiLogFile": "",
+    "logBaseDirectory": "",
+    "perPoolLogFile": true
+  },
+  "banning": {
+    "manager": "Integrated",
+    "banOnJunkReceive": false,
+    "banOnInvalidShares": false
+  },
+  "notifications": {
+    "enabled": false,
+    "email": {
+      "host": "smtp.example.com",
+      "port": 587,
+      "user": "user",
+      "password": "password",
+      "fromAddress": "info@yourpool.org",
+      "fromName": "support"
+    },
+    "admin": {
+      "enabled": false,
+      "emailAddress": "user@example.com",
+      "notifyBlockFound": true
+    }
+  },
+  "persistence": {
+    "postgres": {
+      "host": "127.0.0.1",
+      "port": 5432,
+      "user": "miningcore",
+      "password": "lsmo4411!",
+      "database": "miningcore"
+    }
+  },
+  "paymentProcessing": {
+    "enabled": true,
+    "interval": 60,
+    "shareRecoveryFile": "recovered-shares.txt",
+    "coinbaseString": "Mined by Retro Mike Tech"
+  },
+  "api": {
+    "enabled": true,
+    "listenAddress": "*",
+    "port": 4000,
+    "metricsIpWhitelist": [],
+    "rateLimiting": {
+      "disabled": true,
+      "rules": [
+        {
+          "Endpoint": "*",
+          "Period": "1s",
+          "Limit": 5
+        }
+      ],
+      "ipWhitelist": [
+        ""
+      ]
+    }
+  },
+  "pools": [
+    {
+        "id": "teslachainpow",
+        "enabled": true,
+        "coin": "teslachainpow",
+        "address": "0xC5B26071239f0749C57b0c432AF805a5b6D70287",
+        "rewardRecipients": [
+          {
+            "type": "op",
+            "address": "0xC5B26071239f0749C57b0c432AF805a5b6D70287",
+            "percentage": 1.0
+          }
+        ],
+        "chainTypeOverride": "TeslaChainPOW",
+        "blockRefreshInterval": 120,
+        "clientConnectionTimeout": 600,
+        "banning": {
+          "enabled": true,
+          "time": 600,
+          "invalidPercent": 50,
+          "checkThreshold": 50
+        },
+        "ports": {
+          "5060": {
+            "name": "GPU-SMALL",
+            "listenAddress": "0.0.0.0",
+            "difficulty": 0.1,
+            "varDiff": {
+              "minDiff": 0.1,
+              "maxDiff": null,
+              "targetTime": 15,
+              "retargetTime": 90,
+              "variancePercent": 30
+            }
+          },
+          "5061": {
+            "name": "GPU-LARGE",
+            "listenAddress": "0.0.0.0",
+            "difficulty": 2,
+            "varDiff": {
+              "minDiff": 1,
+              "maxDiff": null,
+              "targetTime": 15,
+              "retargetTime": 90,
+              "variancePercent": 30
+            }
+        }
+      },
+        "daemons": [
+          {
+            "host": "127.0.0.1",
+            "port": 8545,
+            "extraNonce": "pool",
+            "user": "",
+            "password": ""
+          }
+        ],
+        "paymentProcessing": {
+            "enabled": true,
+            "minimumPayment": 0.1,
+            "payoutScheme": "SOLO",
+            "payoutSchemeConfig": {
+                "factor": 0.5
+            },
+            "gas": 21000,
+            "maxFeePerGas": 50000000000,
+            "BlockSearchOffset": 100,
+            "keepUncles": false,
+            "keepTransactionFees": false
+        }
+      }   
+    ]
+  }
